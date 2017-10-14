@@ -1,4 +1,7 @@
 # DesafioVBA_Maromo
+
+Meu nome é Guilherme Rey Simioni - RA 1630481723016	
+
 Desafio esse do qual o objetivo era construir um código em VBA simulando as subidas de um elevador sobe um prédio de 10 andares
 
 DESAFIO VBA - MAROMO
