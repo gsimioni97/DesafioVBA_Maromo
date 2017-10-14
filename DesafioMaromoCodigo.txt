@@ -1,0 +1,156 @@
+Option Explicit
+
+Sub desafio()
+    'declarando as variaveis
+    Dim i As Integer, j As Integer
+    Dim capacidade As Integer, entrar As Integer, sair As Integer, totalv As Integer, total As Integer, sobra As Integer
+    'inicio do for para numero de viagens, totais do dia
+    For i = 1 To 30
+        entrar = 0
+        sair = 0
+        capacidade = 0
+        'primeiro valor, sendo o térreo, pois como o elevador só sobe, não haverá saída de pessoas agora
+        entrar = InputBox("Quantas pessoas irão entrar? ", "Elevador está vazio")
+        If entrar <= 0 Then
+            Do While entrar <= 0
+                MsgBox ("Impossivel, não é permitido números negativos, e que pelo menos haja 1 pessoa no elevador, por favor digite novamente")
+                entrar = InputBox("Quantas pessoas irão entrar? ", "Elevador está vazio")
+                If (entrar + capacidade) <= 6 Then
+                    capacidade = capacidade + entrar
+                    totalv = totalv + entrar
+                ElseIf (entrar + capacidade) > 6 Then
+                    MsgBox ("A capacidade maxima é de 6 pessoas, portanto entrará 6")
+                    capacidade = 6
+                End If
+            Loop
+        ElseIf entrar <= 6 Then
+            capacidade = entrar
+        Else
+            MsgBox ("A capacidade maxima é de 6 pessoas, portanto entrará 6")
+            capacidade = 6
+        End If
+        totalv = capacidade
+        'Inicio do for para cada um dos andares
+        For j = 1 To 9
+            'calculando a saida das pessoas primeiro
+            sair = InputBox("Quantas pessoas irão sair?", "Número de pessoas dentro do elevador: " & capacidade)
+            If sair < 0 Then
+                Do While sair < 0
+                    MsgBox ("Impossivel, não é permitido números negativos, por favor digite novamente")
+                    sair = InputBox("Quantas pessoas irão sair?", "Número de pessoas dentro do elevador: " & capacidade)
+                    If sair = 0 And capacidade = 6 Then
+                        MsgBox ("Elevador cheio, não poderá entrar mais ninguem, somente se alguem sair")
+                        GoTo Cheio
+                    ElseIf sair > capacidade Then
+                        Do While sair > capacidade
+                            MsgBox ("Impossivel, pois há menas pessoas dentro, digite novamente")
+                            sair = InputBox("Quantas pessoas irão sair?", "Número de pessoas dentro do elevador: " & capacidade)
+                        Loop
+                    End If
+                Loop
+                
+            ElseIf sair = 0 And capacidade = 6 Then
+                MsgBox ("Elevador cheio, não poderá entrar mais ninguem, somente se alguem sair")
+                GoTo Cheio
+                
+            ElseIf sair > capacidade Then
+                Do While sair > capacidade
+                    MsgBox ("Impossivel, pois há menas pessoas dentro, digite novamente")
+                    sair = InputBox("Quantas pessoas irão sair?", "Número de pessoas dentro do elevador: " & capacidade)
+                    If sair < 0 Then
+                        Do While sair < 0
+                            MsgBox ("Impossivel, não é permitido números negativos, por favor digite novamente")
+                            sair = InputBox("Quantas pessoas irão sair?", "Número de pessoas dentro do elevador: " & capacidade)
+                        Loop
+                    ElseIf sair = 0 And capacidade = 6 Then
+                        MsgBox ("Elevador cheio, não poderá entrar mais ninguem, somente se alguem sair")
+                        GoTo Cheio
+                    End If
+                Loop
+            End If
+            
+            capacidade = capacidade - sair
+            
+            'calculando a entrada das pessoas
+            entrar = InputBox("Quantas pessoas irão entrar? ", "Número de pessoas dentro do elevador: " & capacidade)
+            If entrar < 0 Then
+                Do While entrar < 0
+                    MsgBox ("Impossivel, não é permitido números negativos, por favor digite novamente")
+                    entrar = InputBox("Quantas pessoas irão entrar? ", "Número de pessoas dentro do elevador: " & capacidade)
+                    If (entrar + capacidade) = 0 Then
+                        Do While (entrar + capacidade) = 0
+                            MsgBox ("Não há ninguém no elevador, ele precisa de ao menos 1 pessoa para funcionar, por favor digite novamente")
+                            entrar = InputBox("Quantas pessoas irão entrar? ", "Número de pessoas dentro do elevador: " & capacidade)
+                            If (entrar + capacidade) <= 6 Then
+                                capacidade = capacidade + entrar
+                                totalv = totalv + entrar
+                            ElseIf (entrar + capacidade) > 6 Then
+                                MsgBox ("A capacidade maxima é de 6 pessoas, portanto entrará 6")
+                                sobra = 6 - capacidade
+                                capacidade = 6
+                                totalv = totalv + sobra
+                            End If
+                        Loop
+                    ElseIf (entrar + capacidade) <= 6 Then
+                        capacidade = capacidade + entrar
+                        totalv = totalv + entrar
+                    
+                    Else
+                        MsgBox ("A capacidade maxima é de 6 pessoas, portanto entrará 6")
+                        sobra = 6 - capacidade
+                        capacidade = 6
+                        totalv = totalv + sobra
+                        
+                    End If
+                Loop
+            ElseIf (entrar + capacidade) = 0 Then
+                Do While (entrar + capacidade) = 0
+                    MsgBox ("Não há ninguém no elevador, ele precisa de ao menos 1 pessoa para funcionar, por favor digite novamente")
+                    entrar = InputBox("Quantas pessoas irão entrar? ", "Número de pessoas dentro do elevador: " & capacidade)
+                    If entrar < 0 Then
+                        Do While entrar < 0
+                            MsgBox ("Impossivel, não é permitido números negativos, por favor digite novamente")
+                            entrar = InputBox("Quantas pessoas irão entrar? ", "Número de pessoas dentro do elevador: " & capacidade)
+                            If (entrar + capacidade) <= 6 Then
+                                capacidade = capacidade + entrar
+                                totalv = totalv + entrar
+                            ElseIf (entrar + capacidade) > 6 Then
+                                MsgBox ("A capacidade maxima é de 6 pessoas, portanto entrará 6")
+                                sobra = 6 - capacidade
+                                capacidade = 6
+                                totalv = totalv + sobra
+                                
+                            End If
+                        Loop
+                    End If
+                    If (entrar + capacidade) <= 6 Then
+                        capacidade = capacidade + entrar
+                        totalv = totalv + entrar
+                    ElseIf (entrar + capacidade) > 6 Then
+                        MsgBox ("A capacidade maxima é de 6 pessoas, portanto entrará 6")
+                        sobra = 6 - capacidade
+                        capacidade = 6
+                        totalv = totalv + sobra
+                        
+                    End If
+                Loop
+            ElseIf (entrar + capacidade) <= 6 Then
+                capacidade = capacidade + entrar
+                totalv = totalv + entrar
+            Else
+                MsgBox ("A capacidade maxima é de 6 pessoas, portanto entrará 6")
+                sobra = 6 - capacidade
+                capacidade = 6
+                totalv = totalv + sobra
+                
+            End If
+Cheio:
+        Next
+        'Printando na tela o total de cada viagem
+        MsgBox ("Total de pessoas que embarcaram nessa " & i & " viagem: " & totalv)
+        total = total + totalv
+    Next
+    'Printando na tela o total de pessoas que usaram o elavador durante o dia
+    MsgBox ("Total de pessoas que embarcaram durante o dia: " & total)
+         
+End Sub
